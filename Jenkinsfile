@@ -6,13 +6,6 @@ pipeline {
   }
 
   agent any
-  parameters {
-        choice(
-            choices: ['backend', 'frontend'],
-            description: 'Select the component: backend or frontend',
-            name: 'COMPONENT'
-        )
-    }
 
   stages {
 
@@ -22,33 +15,11 @@ pipeline {
       }
     }
 
-    stage('Build image') {
+    stage('Build image Fronend') {
       steps{
         script {
-          //dockerImage = docker.build dockerimagename
-          def component = params.COMPONENT
-          sh '''
-                        #!/bin/bash
-                        if [[ $# -ne 1 || $1 != "backend" && $1 != "frontend" ]]; then
-                            echo "Script takes one argument which must be either 'backend' or 'frontend'. Value given: '$1'"
-                            exit 1
-                        fi
-
-                        echo "Running docker pipeline for: $1"
-                        echo ""
-
-                        echo "Building container"
-                        build_command="docker build $1 -f $1/$1.dockerfile -t thimchhon/k8app-$1-image"
-                        echo -e "\t$build_command"
-                        eval $build_command
-                        echo ""
-
-                        echo "Pushing container"
-                        push_command="docker push thimchhon/k8app-$1-image"
-                        echo -e "\t$push_command"
-                        eval $push_command
-                        echo ""
-                    ''' .stripIndent(), component
+            // Build Docker image with custom options
+            docker.build('thimchhon/k8app-frontend-image', '-f /var/lib/jenkins/workspace/ernetes-front-end-backend_master/frontend/frontend.dockerfile --build-arg ARG_NAME=ARG_VALUE')
         }
       }
     }
