@@ -8,13 +8,13 @@ echo "Running docker pipeline for: $1"
 echo ""
 
 echo "Building container"
-build_command="docker build $1 -f $1/$1.dockerfile -t dangg/k8app-$1-image"
+build_command="docker build $1 -f $1/$1.dockerfile -t thimchhon/k8app-$1-image"
 echo -e "\t$build_command"
 eval $build_command
 echo ""
 
 echo "Pushing container"
-push_command="docker push dangg/k8app-$1-image"
+push_command="docker push thimchhon/k8app-$1-image"
 echo -e "\t$push_command"
 eval $push_command
 echo ""
