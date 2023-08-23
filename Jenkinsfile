@@ -6,6 +6,13 @@ pipeline {
   }
 
   agent any
+  parameters {
+        choice(
+            choices: ['backend', 'frontend'],
+            description: 'Select the component: backend or frontend',
+            name: 'COMPONENT'
+        )
+    }
 
   stages {
 
@@ -19,6 +26,7 @@ pipeline {
       steps{
         script {
           //dockerImage = docker.build dockerimagename
+          def component = params.COMPONENT
           sh '''
                         #!/bin/bash
                         if [[ $# -ne 1 || $1 != "backend" && $1 != "frontend" ]]; then
@@ -40,7 +48,7 @@ pipeline {
                         echo -e "\t$push_command"
                         eval $push_command
                         echo ""
-                    '''
+                    ''' .stripIndent(), component
         }
       }
     }
