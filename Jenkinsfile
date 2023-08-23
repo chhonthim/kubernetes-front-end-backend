@@ -19,7 +19,7 @@ pipeline {
       steps{
         script {
           //dockerImage = docker.build dockerimagename
-          sh 'kubernetes-front-end-backend/build_and_push_docker.sh'
+          sh '/var/lib/jenkins/workspace/ernetes-front-end-backend_master/build_and_push_docker.sh'
         }
       }
     }
