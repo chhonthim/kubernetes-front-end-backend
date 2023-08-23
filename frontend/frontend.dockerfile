@@ -1,6 +1,6 @@
 # => Build container
 FROM --platform=$BUILDPLATFORM amd64/node:alpine as builder
-WORKDIR /app
+WORKDIR /var/lib/jenkins/workspace/ernetes-front-end-backend_master/frontend/app
 COPY package.json .
 COPY package-lock.json .
 #COPY yarn.lock .
