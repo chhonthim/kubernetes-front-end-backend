@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: k8app-backend
-          image: dangg/k8app-backend-image
+          image: thimchhon/k8app-backend-image
           imagePullPolicy: Always
           ports:
           - containerPort: 80
