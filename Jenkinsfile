@@ -18,7 +18,8 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build dockerimagename
+          //dockerImage = docker.build dockerimagename
+          sh 'kubernetes-front-end-backend/build_and_push_docker.sh'
         }
       }
     }
@@ -32,14 +33,6 @@ pipeline {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
             dockerImage.push("latest")
           }
-        }
-      }
-    }
-
-    stage('Deploying React.js container to Kubernetes') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
         }
       }
     }
