@@ -19,7 +19,7 @@ pipeline {
       steps{
         script {
             // Build Docker image with custom options
-            docker.build('thimchhon/k8app-frontend-image', '-f /var/lib/jenkins/workspace/ernetes-front-end-backend_master/frontend/frontend.dockerfile --build-arg ARG_NAME=ARG_VALUE')
+            sh "docker buildx build -t thimchhon/k8app-frontend-image -f /var/lib/jenkins/workspace/ernetes-front-end-backend_master/frontend/frontend.dockerfile ."
         }
       }
     }
