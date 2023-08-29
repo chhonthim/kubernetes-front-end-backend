@@ -5,7 +5,7 @@ pipeline {
     dockerImage = ""
   }
 
-  agent any
+  agent master1
 
   stages {
 
@@ -19,20 +19,7 @@ pipeline {
       steps{
         script {
             // Build Docker image with custom options
-            sh "docker buildx build -t thimchhon/k8app-frontend-image -f /var/lib/jenkins/workspace/ernetes-front-end-backend_master/frontend/frontend.dockerfile ."
-        }
-      }
-    }
-
-    stage('Pushing Image') {
-      environment {
-               registryCredential = 'dockerhub-credential'
-           }
-      steps{
-        script {
-          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("latest")
-          }
+            sh "docker buildx build -t thimchhon/k8app-frontend-image -f .frontend/frontend.dockerfile"
         }
       }
     }
